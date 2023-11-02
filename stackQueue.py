@@ -19,10 +19,14 @@ class Stack:
         return self.cSize==0
         
     def push(self, value, content=None):
-        if self.isFull() or not value:raise ValueError('Stack is Full')
+        if self.isFull() or not value:raise ValueError('Full Stack')
         else:
             self.cSize+=1
             self.arr.append(Node(value, content))
+            
+    def peek(self):
+        if not self.isEmpty():return self.arr[-1]
+        else:raise ValueError('Empty Stack')
                     
     def __pop(self):
         if self.isEmpty():raise ValueError('Empty Stack')
@@ -49,13 +53,16 @@ class Queue(Stack):
         self.tail+=1
 
     def dequeue(self):
-        if self.isEmpty():
-            raise ValueError('Queue is Empty')
+        if self.isEmpty():raise ValueError('Queue is Empty')
         else:
             itemP=self.arr[self.head]
             self.head+=1
             self.cSize-=1
         return itemP
+    
+    def peek(self):
+        if not self.isEmpty():return self.arr[self.head]
+        else:raise ValueError('Queue is Empty')
                     
                     
             
@@ -65,8 +72,8 @@ class CircularQueue():
             raise ValueError('max_size must be specified for CircularQueue')
         self.arr=[None]*max_size
         self.max_size=max_size
-        self.front=0
-        self.rear=-1
+        self.head=0
+        self.tail=-1
         self.cSize=0
 
     def isFull(self):
@@ -74,12 +81,16 @@ class CircularQueue():
 
     def isEmpty(self):
         return self.cSize==0
+    
+    def peek(self):
+        if not self.isEmpty():return self.arr[self.head]
+        else:raise ValueError('Queue is Full')
 
     def dequeue(self):
         if self.isEmpty():raise ValueError('Queue is Empty')
         else:
-            itemP=self.arr[self.front]
-            self.front=(self.front + 1)%self.max_size
+            itemP=self.arr[self.head]
+            self.head=(self.head + 1)%self.max_size
             self.cSize-=1
         return itemP
 
@@ -87,8 +98,8 @@ class CircularQueue():
         if self.isFull():raise ValueError('Queue is Full')
         elif not value:raise ValueError('No Value')
         else:
-            self.rear=(self.rear + 1)%self.max_size
-            self.arr[self.rear]=Node(value, content)
+            self.tail=(self.tail + 1)%self.max_size
+            self.arr[self.tail]=Node(value, content)
             self.cSize+=1
         
         
@@ -100,7 +111,8 @@ if __name__ == '__main__':
     stack1.push(3, {'data': 'Josh'})
     stack1.push(4)
     
-    print(stack1._Stack__pop())
+    print(stack1.peek())
+    
     
     queue1 = Queue()
     queue1.enqueue(1, {'data': 'James'})
@@ -108,16 +120,20 @@ if __name__ == '__main__':
     queue1.enqueue(3)
     queue1.enqueue(4)
     
-    print(queue1.dequeue())
+    print(queue1.peek())
+    
+    #print(queue1.dequeue())
 
     cqueue1 = CircularQueue(12)
     
-    cqueue1.enqueue(1)
+    cqueue1.enqueue(1, {'data': 'large data'})
     cqueue1.enqueue(2)
     cqueue1.enqueue(3)
     cqueue1.enqueue(4)
     cqueue1.enqueue(5)
     cqueue1.enqueue(6)
-    print(cqueue1.dequeue())
-    print(cqueue1.dequeue())
+    
+    print(cqueue1.peek())
+    #print(cqueue1.dequeue())
+    #print(cqueue1.dequeue())
     
