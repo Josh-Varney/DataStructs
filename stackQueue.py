@@ -4,54 +4,51 @@ class Node:
         self.content = content
         
     def __str__(self):
-        if self.content: return f"{self.val}, {self.content}"
-        else: return str(self.val)
-        
+        return f"{self.val}, {self.content}" if self.content else str(self.val)
         
 class Stack:
     def __init__(self, size=None):
-        self.stack = []
+        self.arr = []
         self.cSize = 0
-        self.mSize = size
+        self.max_size = size
         
     def isFull(self):
-        return self.cSize==self.mSize
+        return self.cSize==self.max_size
     
     def isEmpty(self):
         return self.cSize==0
         
     def push(self, value, content=None):
-        if self.isFull(): return 'Stack is Full'
+        if self.isFull() or not value:raise ValueError('Stack is Full')
         else:
-            if not self.mSize:
-                self.cSize+=1
-                self.stack.append(Node(value, content))
-            else:
-                if self.mSize==self.cSize:return None
-                else:
-                    self.cSize+=1
-                    self.stack.append(Node(value, content))
+            self.cSize+=1
+            self.arr.append(Node(value, content))
                     
-    def pop(self):
-        if self.isEmpty(): return 'Empty Stack'
+    def __pop(self):
+        if self.isEmpty():raise ValueError('Empty Stack')
         else:
-            itemP=self.stack.pop()
+            itemP=self.arr.pop()
             self.cSize-=1
         return itemP
     
-    
     def find(self, nFind):
-        for currentNode in self.stack:
-            if currentNode.val==nFind or (currentNode.content and currentNode.content['data'] == nFind):
-                return True
-        return False
-            
+            return any(node.val==nFind or (node.content and node.content['data']==nFind) for node in self.arr)
                     
     def __str__(self):
-        sString = ''
-        for currentNode in self.stack:
-            sString += str(currentNode.val) + ' '
-        return sString
+        return ' '.join(str(node.val) for node in self.arr)
+    
+
+class Queue(Stack):
+    def __init__(self, size=None):
+        super().__init__(size)
+    
+    # Override 
+    def dequeue(self):
+        if self.isEmpty(): return False
+        else:
+            itemP=self.arr.pop(0)
+            self.cSize-=1
+        return itemP
         
         
         
@@ -62,6 +59,16 @@ if __name__ == '__main__':
     stack1.push(2)
     stack1.push(3, {'data': 'Josh'})
     stack1.push(4)
-    print(stack1)
-    print(stack1.pop())
-    print(stack1.find('Josh'))
+    
+    print(stack1._Stack__pop())
+    
+    queue1 = Queue()
+    queue1.push(1, {'data': 'James'})
+    queue1.push(2)
+    queue1.push(3)
+    queue1.push(4)
+    
+    print(queue1.dequeue())
+
+    
+    
