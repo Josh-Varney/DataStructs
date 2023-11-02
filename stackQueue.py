@@ -35,21 +35,61 @@ class Stack:
             return any(node.val==nFind or (node.content and node.content['data']==nFind) for node in self.arr)
                     
     def __str__(self):
-        return ' '.join(str(node.val) for node in self.arr)
+        return ' '.join(str(node.val)for node in self.arr)
     
 
 class Queue(Stack):
     def __init__(self, size=None):
         super().__init__(size)
-    
-    # Override 
+        self.head=0
+        self.tail=-1
+
+    def enqueue(self, value, content=None):
+        super().push(value, content)
+        self.tail+=1
+
     def dequeue(self):
-        if self.isEmpty(): return False
+        if self.isEmpty():
+            raise ValueError('Queue is Empty')
         else:
-            itemP=self.arr.pop(0)
+            itemP=self.arr[self.head]
+            self.head+=1
             self.cSize-=1
         return itemP
-        
+                    
+                    
+            
+class CircularQueue():
+    def __init__(self, max_size=None):
+        if max_size is None:
+            raise ValueError('max_size must be specified for CircularQueue')
+        self.arr=[None]*max_size
+        self.max_size=max_size
+        self.front=0
+        self.rear=-1
+        self.cSize=0
+
+    def isFull(self):
+        return self.cSize==self.max_size
+
+    def isEmpty(self):
+        return self.cSize==0
+
+    def dequeue(self):
+        if self.isEmpty():raise ValueError('Queue is Empty')
+        else:
+            itemP=self.arr[self.front]
+            self.front=(self.front + 1)%self.max_size
+            self.cSize-=1
+        return itemP
+
+    def enqueue(self, value, content=None):
+        if self.isFull():raise ValueError('Queue is Full')
+        elif not value:raise ValueError('No Value')
+        else:
+            self.rear=(self.rear + 1)%self.max_size
+            self.arr[self.rear]=Node(value, content)
+            self.cSize+=1
         
         
         
@@ -63,12 +103,21 @@ if __name__ == '__main__':
     print(stack1._Stack__pop())
     
     queue1 = Queue()
-    queue1.push(1, {'data': 'James'})
-    queue1.push(2)
-    queue1.push(3)
-    queue1.push(4)
+    queue1.enqueue(1, {'data': 'James'})
+    queue1.enqueue(2)
+    queue1.enqueue(3)
+    queue1.enqueue(4)
     
     print(queue1.dequeue())
 
+    cqueue1 = CircularQueue(12)
     
+    cqueue1.enqueue(1)
+    cqueue1.enqueue(2)
+    cqueue1.enqueue(3)
+    cqueue1.enqueue(4)
+    cqueue1.enqueue(5)
+    cqueue1.enqueue(6)
+    print(cqueue1.dequeue())
+    print(cqueue1.dequeue())
     
