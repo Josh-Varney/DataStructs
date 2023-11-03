@@ -8,37 +8,31 @@ class Node:
     
 class Solution:
     def dfs(self,node):
-        if not node:
-            return
+        if not node:return
         print(node.val, end=" ")
         self.dfs(node.left)
         self.dfs(node.right)
         
     def inorder_traversal(self, node):
-        if not node:
-            return
+        if not node:return
         self.inorder_traversal(node.left)
-        print(node.val, end=' ')
+        print(node.val,end=' ')
         self.inorder_traversal(node.right)
     
     def preoder_traversal(self, node):
-        if not node:
-            return
+        if not node:return
         self.preoder_traversal(node.left)
         self.preoder_traversal(node.right)
-        print(node.val, end=' ')
+        print(node.val,end=' ')
             
     def breadthTraversal(self, node):
-        if not node:
-            return
+        if not node:return
         q = ([node])
         while q:
             currentNode = q.pop(0)
-            if currentNode.left:
-                q.append(currentNode.left)
-            if currentNode.right:
-                q.append(currentNode.right)
-            print(currentNode.val, end=' ')
+            if currentNode.left:q.append(currentNode.left)
+            if currentNode.right:q.append(currentNode.right)
+            print(currentNode.val,end=' ')
             
 class BNode(Node):
     def __init__(self, val, content=None):
@@ -46,36 +40,32 @@ class BNode(Node):
     
     def appendNode(self, val):
         if not self.val:raise ValueError('Enter a Value')
-        if val < self.val:
-            if self.left is None:
-                self.left = BNode(val)
-            else:
-                self.left.appendNode(val)
+        if val<self.val:
+            if self.left is None:self.left = BNode(val)
+            else:self.left.appendNode(val)
         else:
-            if self.right is None:
-                self.right = BNode(val)
-            else:
-                self.right.appendNode(val)
+            if self.right is None:self.right = BNode(val)
+            else:self.right.appendNode(val)
     
     def deleteNode(self, key):
         if not self:raise ValueError('BST Empty')
         
-        if self.val == key:
+        if self.val==key:
             # If key has zero children
             if not self.left and not self.right:return None
             # If key has one child
             if not self.left and self.right:return self.right
             if not self.right and self.left:return self.left
             # If key has two children
-            point = self.right
-            while point.left: point = point.left
-            self.val = point.val
+            point=self.right
+            while point.left:point=point.left
+            self.val=point.val
             self.right.deleteNode(self.right, self.val)
             
         elif self.val>key:
-            self.left = self.left.deleteNode(key)  # return if there is a left node
+            self.left=self.left.deleteNode(key)  # return if there is a left node
         else:
-            self.right = self.right.deleteNode(key) # reflects changes in the BST
+            self.right=self.right.deleteNode(key) # reflects changes in the BST
             
         return self
     
