@@ -73,9 +73,9 @@ class BNode(Node):
             self.right.deleteNode(self.right, self.val)
             
         elif self.val>key:
-            self.left = self.left.deleteNode(key)
+            self.left = self.left.deleteNode(key)  # return if there is a left node
         else:
-            self.right = self.right.deleteNode(key)
+            self.right = self.right.deleteNode(key) # reflects changes in the BST
             
         return self
     
