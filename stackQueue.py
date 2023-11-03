@@ -136,4 +136,3 @@ if __name__ == '__main__':
     print(cqueue1.peek())
     #print(cqueue1.dequeue())
     #print(cqueue1.dequeue())
-    

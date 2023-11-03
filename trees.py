@@ -48,7 +48,7 @@ class BNode(Node):
             else:self.right.appendNode(val)
     
     def deleteNode(self, key):
-        if not self:raise ValueError('BST Empty')
+        if not self:raise ValueError('BST Empty')   # Error is the can't remove the root node 
         
         if self.val==key:
             # If key has zero children
@@ -60,7 +60,7 @@ class BNode(Node):
             point=self.right
             while point.left:point=point.left
             self.val=point.val
-            self.right.deleteNode(self.right, self.val)
+            self.right.deleteNode(self.right, self.val, key)
             
         elif self.val>key:
             self.left=self.left.deleteNode(key)  # return if there is a left node
@@ -92,4 +92,5 @@ if __name__=='__main__':
     bsTree.appendNode(9)
     
     bsTree.deleteNode(7)
+    bsTree.deleteNode(2)
     solution_instance.dfs(bsTree)
