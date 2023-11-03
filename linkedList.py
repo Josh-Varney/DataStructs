@@ -111,28 +111,26 @@ class DoublyLinkedList(LinkedList):
         super().__init__()
         
     def appendNode(self, val):
-        # Case: Head Pointer is Null
+        # Case: Head Pointer is Null Set head = node next
         if not self.head:
+            new_node = DNode(val)
             self.head = DNode(None)
-            self.head.pointer = DNode(val)
-            self.head.pointer.prev = self.head
-        
-        newNode = DNode(val)
-        currentNode = self.head.pointer
-        while currentNode:
-            if currentNode.pointer is None:
-                currentNode.pointer = newNode
-                newNode.prev = currentNode
-                newNode.pointer = self.head.pointer
-                self.head.pointer.prev = newNode
-                break
+            self.head.pointer = new_node
+            new_node.pointer = self.head.pointer
             # Another case to insert a node where the currentNode.next = self.head.pointer.prev
-            if currentNode.pointer==self.head.pointer.prev:
-                currentNode.pointer = newNode
-                newNode.pointer = self.head.pointer.prev
-                newNode.prev = currentNode
-            currentNode = currentNode.pointer
+            
+    
+        currentNode = self.head.pointer
+        new_node = DNode
+        while currentNode:
+            if currentNode.pointer==self.head.pointer:
+                currentNode.pointer = new_node
+                new_node.prev = currentNode
+                new_node.pointer = self.head.pointer
+                break
 
+                
+            currentNode = currentNode.pointer
         
     def __str__(self):
         if not self.head:return ValueError('Doubly Not Initialised')
@@ -149,11 +147,7 @@ class DoublyLinkedList(LinkedList):
         return dString
             
             
-        
-        
-
-            
-        
+               
                 
 if __name__ == '__main__':
     
