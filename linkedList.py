@@ -90,7 +90,7 @@ class circularLinked(LinkedList):
             if currentNode.val!=key:raise ValueError('Key Not In List') 
             
             previousNode.pointer=currentNode.pointer
-            
+    
     def __str__(self):
         currentNode=self.head
         cString=''
@@ -100,10 +100,69 @@ class circularLinked(LinkedList):
             if currentNode==self.head:
                 break
         return cString
+
+class DNode(Node):
+    def __init__(self, val):
+        super().__init__(val)
+        self.prev = None
+            
+class DoublyLinkedList(LinkedList):
+    def __init__(self):
+        super().__init__()
+        
+    def appendNode(self, val):
+        # Case: Head Pointer is Null
+        if not self.head:
+            self.head = DNode(None)
+            self.head.pointer = DNode(val)
+            self.head.pointer.prev = self.head
+        
+        newNode = DNode(val)
+        currentNode = self.head.pointer
+        while currentNode:
+            if currentNode.pointer is None:
+                currentNode.pointer = newNode
+                newNode.prev = currentNode
+                newNode.pointer = self.head.pointer
+                self.head.pointer.prev = newNode
+                break
+            # Another case to insert a node where the currentNode.next = self.head.pointer.prev
+            if currentNode.pointer==self.head.pointer.prev:
+                currentNode.pointer = newNode
+                newNode.pointer = self.head.pointer.prev
+                newNode.prev = currentNode
+            currentNode = currentNode.pointer
+
+        
+    def __str__(self):
+        if not self.head:return ValueError('Doubly Not Initialised')
+        if not self.head.pointer: return ValueError("Empty Doubly List")
+        
+        currentNode = self.head.pointer
+        dString=''
+        while currentNode:
+            dString+=str(currentNode.val)+' '
+            currentNode = currentNode.pointer
+            
+            if currentNode.pointer==self.head.pointer:
+                return dString
+        return dString
+            
+            
+        
+        
+
             
         
                 
 if __name__ == '__main__':
+    
+    dLinkedList = DoublyLinkedList()
+    dLinkedList.appendNode(1)
+    dLinkedList.appendNode(2)
+    print(dLinkedList)
+    
+    
     linklist1 = LinkedList()
     linklist1.appendNode(8)
     linklist1.appendNode(7)
@@ -121,10 +180,12 @@ if __name__ == '__main__':
     clist = [1,2,3,4,5,6,7,8]
     for num in clist:
         clinklist1.appendNode(num)
-    print(clinklist1)
+    # print(clinklist1)
     
-    clinklist1.appendNode(9)
-    print(clinklist1)
+    # clinklist1.appendNode(9)
+    # print(clinklist1)
     
-    clinklist1.deleteNode(1)
-    print(clinklist1)
+    # clinklist1.deleteNode(1)
+    # print(clinklist1)
+    
+    
