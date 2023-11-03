@@ -117,9 +117,8 @@ class DoublyLinkedList(LinkedList):
             self.head = DNode(None)
             self.head.pointer = new_node
             new_node.pointer = self.head.pointer
-            # Another case to insert a node where the currentNode.next = self.head.pointer.prev
             
-    
+        # Another case to insert a node where the currentNode.next = self.head.pointer.prev
         currentNode = self.head.pointer
         new_node = DNode
         while currentNode:
