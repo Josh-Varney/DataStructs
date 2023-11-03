@@ -1,8 +1,9 @@
 class Node:
-    def __init__(self, val):
+    def __init__(self, val, content=None):
         self.val=val
         self.left=None
         self.right=None
+        self.content=content
     
     
 class Solution:
@@ -38,6 +39,45 @@ class Solution:
             if currentNode.right:
                 q.append(currentNode.right)
             print(currentNode.val, end=' ')
+            
+class BNode(Node):
+    def __init__(self, val, content=None):
+        super().__init__(val, content)
+    
+    def appendNode(self, val):
+        if not self.val:raise ValueError('Enter a Value')
+        if val < self.val:
+            if self.left is None:
+                self.left = BNode(val)
+            else:
+                self.left.appendNode(val)
+        else:
+            if self.right is None:
+                self.right = BNode(val)
+            else:
+                self.right.appendNode(val)
+    
+    def deleteNode(self, key):
+        if not self:raise ValueError('BST Empty')
+        
+        if self.val == key:
+            # If key has zero children
+            if not self.left and not self.right:return None
+            # If key has one child
+            if not self.left and self.right:return self.right
+            if not self.right and self.left:return self.left
+            # If key has two children
+            point = self.right
+            while point.left: point = point.left
+            self.val = point.val
+            self.right.deleteNode(self.right, self.val)
+            
+        elif self.val>key:
+            self.left = self.left.deleteNode(key)
+        else:
+            self.right = self.right.deleteNode(key)
+            
+        return self
     
 if __name__=='__main__':
     root = Node(1)
@@ -50,5 +90,16 @@ if __name__=='__main__':
     
     solution_instance = Solution()
     
-    solution_instance.breadthTraversal(root)
+    # solution_instance.breadthTraversal(root)
+
+    bsTree = BNode(1)
+    bsTree.appendNode(2)
+    bsTree.appendNode(5)
+    bsTree.appendNode(7)
+    bsTree.appendNode(3)
+    bsTree.appendNode(8)
+    bsTree.appendNode(0)
+    bsTree.appendNode(9)
     
+    bsTree.deleteNode(7)
+    solution_instance.dfs(bsTree)
