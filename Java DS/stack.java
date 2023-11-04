@@ -56,6 +56,13 @@ public class stack {
         return currentNode;
     }
 
+    public SNode peek(){
+        if (head == null){
+            throw new IllegalArgumentException("Empty Stack");
+        }
+        return head;
+    }
+
 
     public void printStack() {
         SNode currentNode = head;
