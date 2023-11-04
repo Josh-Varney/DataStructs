@@ -1,10 +1,10 @@
-public class stackQueue {
+public class stack {
     static SNode head;
     public static void main(String[] args) {
-        stackQueue stack1 = new stackQueue();
-        stackQueue.append(1);
-        stackQueue.append(2);
-        stackQueue.append(3);
+        stack stack1 = new stack();
+        stack.append(1);
+        stack.append(2);
+        stack.append(3);
         stack1.printStack();
         stack1.pop();
         SNode node = stack1.pop();
@@ -13,7 +13,7 @@ public class stackQueue {
         stack1.printStack();
     }
 
-    public stackQueue(){
+    public stack(){
         head = null;
     }
 

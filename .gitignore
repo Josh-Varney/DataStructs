@@ -1,4 +1,6 @@
-# ignore all .txt files
+# Text Files
 * .txt
+# MacOS .DS_Store
 .DS_Store
+# Compiled class file
 *.class
