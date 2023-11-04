@@ -6,7 +6,6 @@ public class trees {
     }
 }
 
-
 class tNode {
     int val;
     Node left;
