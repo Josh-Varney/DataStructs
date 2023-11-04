@@ -88,7 +88,7 @@ class Circularlinkedlist extends linkedList{
             head.nextNode=head;
             return;
         }
-
+        // Head is not null
         Node currentNode=head;
         while (currentNode.nextNode!=head) {
             currentNode=currentNode.nextNode;
@@ -101,6 +101,7 @@ class Circularlinkedlist extends linkedList{
     @Override
     public void remove(int key){
         Node temp=head, prev=null;
+        // Case: Found key
         if (temp!=null && temp.val==key){
             head=temp.nextNode;
             return;
@@ -110,7 +111,7 @@ class Circularlinkedlist extends linkedList{
             prev=temp;
             temp=temp.nextNode;
         }
-
+        // Case: Head is null
         if (temp==null) return;
 
         prev.nextNode=temp.nextNode;
