@@ -18,11 +18,12 @@ public class linkedList{
 
     public void append(int val){
         Node newNode = new Node(val);
+        // Case: Head is Null
         if (head == null){
             head = newNode;
             return;
         }
-
+        // Case: Head is not null
         Node current = head;
         while (current.nextNode != null){
             current = current.nextNode;
@@ -33,17 +34,17 @@ public class linkedList{
 
     public void remove(int key){
         Node temp = head, prev = null;
-
+        // Case: Found the key 
         if (temp != null && temp.val == key){
             head = temp.nextNode;
             return;
         }
-
+        
         while (temp != null && temp.val != key){
             prev = temp;
             temp = temp.nextNode;
         }
-
+        // Case: No head
         if (temp == null) return;
 
         prev.nextNode = temp.nextNode;
