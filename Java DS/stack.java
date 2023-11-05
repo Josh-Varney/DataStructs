@@ -14,19 +14,19 @@ public class stack {
     }
 
     public stack(){
-        head = null;
+        head=null;
     }
 
     public static void append(int val){
         // Case: No Head Node
-        if (head == null){
-            head = new SNode(val);
+        if (head==null){
+            head=new SNode(val);
             return;
         }
 
-        SNode currentNode = head;
-        while (currentNode.nextNode != null) {
-            currentNode = currentNode.nextNode;
+        SNode currentNode=head;
+        while (currentNode.nextNode!=null) {
+            currentNode=currentNode.nextNode;
         }
 
         currentNode.nextNode = new SNode(val);
