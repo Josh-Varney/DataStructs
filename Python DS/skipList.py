@@ -40,6 +40,10 @@ class SkipList:
     def printSkip(self):
         print(self.arr)
         
+    def __str__(self):
+        for i in range(len(self.arr)):
+            print(self.arr[0][i-1])
+        
             
 
 if __name__== '__main__':
@@ -47,5 +51,6 @@ if __name__== '__main__':
     myskip.appendNode(1)
     myskip.appendSkip(2)
     myskip.appendSkip(3)
-    myskip.printSkip()
+    
+    print(myskip)
     

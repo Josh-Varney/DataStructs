@@ -34,6 +34,42 @@ class Solution:
             if currentNode.right:q.append(currentNode.right)
             print(currentNode.val,end=' ')
             
+    def printNofNodes(self, node, index):
+        if not node:
+            return 0
+        left_count = self.printNofNodes(node.left, index+1)
+        right_count = self.printNofNodes(node.right, index+1)
+        
+        total_count = left_count + right_count + 1   # Increment one to include the root
+        print(f'Number of nodes at level {index} : {node.val}')
+            
+        return total_count
+    
+    def longestPath(self, node, count, maxCount):
+        if not node:
+            return maxCount
+
+        left_count = self.longestPath(node.left, count + node.val, maxCount)
+        right_count = self.longestPath(node.right, count + node.val, maxCount)
+
+        count = max(count, left_count, right_count)
+
+        return count
+    
+    def countLeafNodes(self, node):
+        if not node:
+            return 0
+        
+        if not node.left and not node.right:
+            return 1
+        
+        left_leaf = self.countLeafNodes(node.left)
+        right_leaf = self.countLeafNodes(node.right)
+
+        leaf_count = left_leaf + right_leaf
+        return leaf_count
+
+    
 class BNode(Node):
     def __init__(self, val, content=None):
         super().__init__(val, content)
@@ -82,6 +118,10 @@ if __name__=='__main__':
     root.right.right = Node(7)
     
     solution_instance = Solution()
+    
+    solution_instance
+    print(count)
+   
     
     # solution_instance.breadthTraversal(root)
 
