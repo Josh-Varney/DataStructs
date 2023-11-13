@@ -1,56 +1,98 @@
 import random
 
-class SLNode:
-    def __init__(self, val):
+
+class Node:
+    def __init__(self, val=None):
         self.val = val
         self.pointer = None
-        
-class SkipList:
+        self.prev = None
+
+class skipList:
     def __init__(self):
-        self.arr = []
-        self.skipIndex = 0
-        self.indexNode = SLNode(None)
+        self.headIndex = 0
+        self.head = []
         
+    def appendHead(self, val):
+        self.head.append([self.headIndex, Node(val)])
+        self.headIndex+=1
         
     def appendNode(self, val):
-        if not self.arr:
-            self.indexNode.pointer = SLNode(val)
-            self.arr.append([0, self.indexNode])
-            self.skipIndex+=1
+        if random.randint(0, 3) == 3:
+            self.appendHead(val)
         else:
-            randint = random.randint(0, len(self.arr)-1)
-            currentNode = self.arr[randint][1]
-            while currentNode.pointer:
-                currentNode = currentNode.pointer
-            currentNode.pointer = SLNode(val)
-    
-    def appendSkip(self, val):
-        if not self.arr:
-            raise ValueError('Configure SkipList First')
-        else:
-            self.indexNode.pointer = SLNode(val)
-            self.arr.append([self.skipIndex, self.indexNode])
-            self.skipIndex+=1
+            currentHeadIndex = random.randint(0,len(self.head))
+            if not self.head:
+                self.appendHead(val)
+            else:
+                prevNode = None
+                newNode = Node(val)
+                currentHead = self.head[currentHeadIndex-1]
+                currentNode = currentHead[1]
+                while currentNode.pointer:
+                    if currentNode.val > val:
+                        prevNode.pointer = newNode
+                        newNode.pointer = currentNode
+                        newNode.prev = prevNode
+                        return # PrevNode has no pointer
+                        
+                    prevNode = currentNode
+                    currentNode = currentNode.pointer
             
-            currentNode = self.arr[0][1]
-            while currentNode.pointer:
-                currentNode = currentNode.pointer
-            currentNode.pointer = SLNode(val)
-    
-    def printSkip(self):
-        print(self.arr)
+                currentNode.prev = prevNode
+                currentNode.pointer = Node(val)
+                
+    def insertNode(self, currentHeadIndex, val):
+        if currentHeadIndex == 0:
+            return
         
+        while currentHeadIndex:
+            currentHead = self.head[currentHeadIndex-1]
+            currentNode = currentHead[1]
+            
+            while currentNode.pointer:
+                if currentNode.val > val:
+                    temp = currentNode
+                    currentNode = Node(val)
+                    currentNode.pointer = temp
+                    
+                currentNode = currentNode.pointer
+            currentHeadIndex-=1
+        
+        
+                
+    def searchNode(self, targetValue):
+        for headIndex in self.head:    # Append the node into all parts of the indexes
+            print(headIndex)
+        
+                
+                
+         
     def __str__(self):
-        for i in range(len(self.arr)):
-            print(self.arr[0][i-1])
-        
+        lString = ''
+        for currentHead in range(self.headIndex):
+            lString+=f'Level {currentHead}:'
+            hNode = self.head[currentHead]
+            currentNode = hNode[1]
             
-
-if __name__== '__main__':
-    myskip = SkipList()
-    myskip.appendNode(1)
-    myskip.appendSkip(2)
-    myskip.appendSkip(3)
+            while currentNode:
+                lString+=' '+str(currentNode.val)
+                currentNode = currentNode.pointer 
+            lString += '\n'
+                
+        return lString
+                
     
-    print(myskip)
+                
+        
+        
+if __name__ == '__main__':
+    skip1 = skipList()
+    skip1.appendNode(7)
+    skip1.appendNode(8)
+    skip1.appendNode(9)
+    skip1.appendNode(10)
+    skip1.appendNode(11)
+    skip1.appendNode(8)
+    print(skip1)
+    
     
