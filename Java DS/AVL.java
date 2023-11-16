@@ -48,6 +48,7 @@ public class AVL {
         if (node == null){
             return 0;
         }else{
+            // Maximum(Height of left subtree and Height of right subtree) + 1 for the root node
             return node.height = 1 + Math.max(_get_height(node.left), _get_height(node.right));
         }
     }
@@ -99,11 +100,12 @@ public class AVL {
     }
     
     public void insert(int key){
+        // Removes the head and views it as a normal node for recursive calls
         root = _insert_recursive(root,key);
     }
 
     private AVLNode _insert_recursive(AVLNode node, int key){
-        // BST insertion
+        // Same as BST Insertion
         if (node==null){
             return new AVLNode(key);
         } 
@@ -112,7 +114,7 @@ public class AVL {
         }else{
             node.right = _insert_recursive(node.right, key);
         }
-        // Balance the nodes after insertion
+        // Balance the nodes after each insertion
         return _balance(node);
     }
 
@@ -182,6 +184,7 @@ public class AVL {
 
 
 class AVLNode {
+    // Balance Factor can be calculated through the height
     int key;
     int height;
     AVLNode left;

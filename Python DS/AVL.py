@@ -109,15 +109,12 @@ class AVLTree:
             print(node.key, end=" ")
             self.inorder(node.right)
 
-    def print_inorder(self):
-        self.inorder(self.root)
-        print()
-
 
 if __name__ == '__main__':
     avl = AVLTree()
-    keys = [10, 20, 30, 40, 50, 25, 15, 12]
+    keys = [10, 20, 30, 40, 50, 25, 15, 12, 7, 8]
     for key in keys:
         avl.insert(key)
 
     avl.print_inorder()
+    print(avl)
