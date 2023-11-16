@@ -17,7 +17,9 @@ class TTTree:
         if key in root.keys:
             return  # Ignore duplicate keys
 
+        # If 2-Node then
         if len(root.keys) == 1:
+            # Same as BST but inside node
             if key < root.keys[0]:
                 root.keys.insert(0, key)
             else:
@@ -28,6 +30,7 @@ class TTTree:
             else:
                 self._insert(root.children[0], key)
 
+        # If 3-Node then
         if len(root.keys) == 2:
             middle_key = root.keys[1]
             leftChild = TTNode(keys=[root.keys[0]], children=[])
@@ -40,6 +43,7 @@ class TTTree:
         self._print_tree(self.root, level=0)
 
     def _print_tree(self, root, level):
+        # Shows the key levels and their children
         if root:
             print('Level:', level, 'Keys:', root.keys)
             for i, child in enumerate(root.children):
