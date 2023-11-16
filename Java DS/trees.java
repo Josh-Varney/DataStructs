@@ -82,15 +82,6 @@ public class trees {
         return minValue;
     }
 
-    private int maxValue(TreeNode node){
-        int maxValue = node.val;
-        while(node.right != null){
-            maxValue = node.right.val;
-            node = node.right;
-        }
-        return maxValue;
-    }
-
     public void printTree(TreeNode node) {
         // in-order traversal
         if (node != null) {
